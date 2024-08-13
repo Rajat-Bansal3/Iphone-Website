@@ -31,7 +31,6 @@ const Model = () => {
   const [largeRotation, setLargeRotation] = useState(0);
 
   const tl = gsap.timeline();
-  //WIP:not Rotating
   return (
     <section className='common-padding'>
       <div className='screen-max-width'>
@@ -41,6 +40,7 @@ const Model = () => {
 
         <div className='flex flex-col items-center mt-5'>
           <div className='w-full h-[75vh] md:h-[90vh] overflow-hidden relative'>
+            {/* WIP:no models are rotating */}
             <ModelView
               index={1}
               groupRef={small}
