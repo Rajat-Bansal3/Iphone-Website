@@ -8,26 +8,28 @@ import { heroVideo, smallHeroVideo } from "@/utils";
 type Props = {};
 
 const Hero = (props: Props) => {
-  const [videoSrc, setVideoSrc] = useState(
-    window.innerWidth < 760 ? smallHeroVideo : heroVideo
-  );
-
   useGSAP(() => {
     gsap.to(".hero-title", { opacity: 1, delay: 1.5, ease: "circ.in" });
     gsap.to("#cta", { opacity: 1, y: -50, delay: 1.5, ease: "back.in" });
   }, []);
 
-  const handleVidSrc = () => {
-    if (window.innerWidth < 760) {
-      setVideoSrc(smallHeroVideo);
-    } else {
-      setVideoSrc(heroVideo);
+  const [videoSrc, setVideoSrc] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 760 ? smallHeroVideo : heroVideo;
     }
-  };
+    return smallHeroVideo;
+  });
 
   useEffect(() => {
+    const handleVidSrc = () => {
+      if (typeof window !== "undefined") {
+        setVideoSrc(window.innerWidth < 760 ? smallHeroVideo : heroVideo);
+      }
+    };
+
     handleVidSrc();
     window.addEventListener("resize", handleVidSrc);
+
     return () => {
       window.removeEventListener("resize", handleVidSrc);
     };

@@ -12,6 +12,14 @@ import { View } from "@react-three/drei";
 import { models, sizes } from "@/lib/constants";
 
 const Model = () => {
+  const [rootElement, setRootElement] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const element = document.getElementById("root");
+    if (element) {
+      setRootElement(element);
+    }
+  }, []);
   const [size, setSize] = useState("small");
   const [model, setModel] = useState({
     title: "iPhone 15 Pro in Natural Titanium",
@@ -72,7 +80,7 @@ const Model = () => {
                 overflow: "hidden",
               }}
               //@ts-ignore
-              eventSource={document.getElementById("root")}
+              eventSource={rootElement}
             >
               <View.Port />
             </Canvas>
